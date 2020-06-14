@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Search from "./components/Search/Search";
 
-function App() {
+const App = () => {
+  const [monsters, setMonster] = useState([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((users) => setMonster(users));
+  }, []);
+  console.log(monsters);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Search monsters={monsters} />
     </div>
   );
-}
+};
 
 export default App;
+
+// import React, { Component } from 'react'
+
+// export class App extends Component {
+//   state={
+//     monsters: []
+//   }
+//   componentDidMount() {
+//     fetch("https://jsonplaceholder.typicode.com/users")
+//     .then((res) => res.json())
+//     .then((users) => this.setState({ monsters: users }));
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <div>
+//           {this.state.monsters.map(monster => (
+//             <div key={monster.id}>
+//               <h5>{monster.name}</h5>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+
+// export default App
